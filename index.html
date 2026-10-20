@@ -1,23 +1,450 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nvser.com</title>
-    <style>
-        body { font-family: -apple-system, "Segoe UI", sans-serif; display: flex;
-               min-height: 100vh; align-items: center; justify-content: center;
-               margin: 0; background: #f5f5f5; color: #333; }
-        .card { background: #fff; padding: 3rem 4rem; border-radius: 12px;
-                box-shadow: 0 4px 16px rgba(0,0,0,.08); text-align: center; }
-        h1 { margin: 0 0 .5rem; font-size: 1.6rem; }
-        p { margin: 0; color: #888; }
-    </style>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="女神,女神成长计划,女性成长,优雅生活,精致生活">
+<meta name="description" content="Goddess · 女神成长计划 —— 一个关于优雅、自信与自我绽放的女性成长社区。">
+<title>Goddess · 女神成长计划</title>
+<link href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<script>document.documentElement.className += ' js';</script>
+<style>
+    :root {
+        --rose: #c68fa8;
+        --rose-deep: #a96c88;
+        --gold: #cfa87c;
+        --ink: #3d3238;
+        --muted: #8a7c82;
+        --line: #efe4e9;
+        --paper: #fffcfb;
+    }
+    body {
+        font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: .02em;
+        overflow-x: hidden;
+    }
+    h1, h2, h3, .serif {
+        font-family: Georgia, "Times New Roman", "Songti SC", "STSong", "SimSun", serif;
+    }
+    a { color: var(--rose); text-decoration: none; transition: all .3s ease; }
+    a:hover, a:focus { color: var(--rose-deep); text-decoration: none; }
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.7,.3,1), transform .9s cubic-bezier(.2,.7,.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ============ 导航 ============ */
+    .navbar-goddess {
+        background: transparent; border: 0; margin-bottom: 0; padding: 16px 0;
+        transition: background .4s ease, box-shadow .4s ease, padding .4s ease;
+    }
+    .navbar-goddess .navbar-brand {
+        font-family: Georgia, serif; font-size: 19px; letter-spacing: .3em; color: #4a3d43; height: auto; padding: 13px 15px;
+    }
+    .navbar-goddess .nav > li > a {
+        color: #6f6068; font-size: 13px; letter-spacing: .14em; padding: 15px 20px; position: relative;
+    }
+    .navbar-goddess .nav > li > a::after {
+        content: ""; position: absolute; left: 20px; right: 20px; bottom: 10px; height: 1px;
+        background: var(--rose); transform: scaleX(0); transform-origin: right; transition: transform .35s ease;
+    }
+    .navbar-goddess .nav > li > a:hover::after,
+    .navbar-goddess .nav > li.active > a::after { transform: scaleX(1); transform-origin: left; }
+    .navbar-goddess .nav > li > a:hover { color: var(--rose); background: transparent; }
+    .navbar-goddess .navbar-toggle { border-color: #e3d3da; border-radius: 2px; }
+    .navbar-goddess .navbar-toggle .icon-bar { background: #a58d96; }
+    .navbar-solid {
+        background: rgba(255,252,251,.92);
+        -webkit-backdrop-filter: saturate(140%) blur(10px);
+        backdrop-filter: saturate(140%) blur(10px);
+        box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 8px 30px rgba(120,80,100,.06);
+        padding: 6px 0;
+    }
+
+    /* ============ Hero ============ */
+    .hero {
+        position: relative; overflow: hidden; min-height: 100vh;
+        display: -webkit-flex; display: flex; align-items: center;
+        background: linear-gradient(165deg, #fffdfc 0%, #fdf3f5 45%, #f7eef1 100%);
+        padding: 120px 0 90px;
+    }
+    .hero .blob {
+        position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; pointer-events: none;
+    }
+    .hero .blob.b1 { width: 460px; height: 460px; top: -90px; left: -80px; background: #f0cddc; animation: drift 18s ease-in-out infinite; }
+    .hero .blob.b2 { width: 380px; height: 380px; bottom: -60px; right: -60px; background: #f5ddc6; animation: drift 22s ease-in-out infinite reverse; }
+    .hero .blob.b3 { width: 260px; height: 260px; top: 40%; right: 15%; background: #e6d9ef; animation: drift 26s ease-in-out infinite; }
+    @keyframes drift {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(36px, -30px) scale(1.12); }
+    }
+    .hero .inner { position: relative; z-index: 2; }
+
+    .eyebrow {
+        display: inline-block; font-size: 11px; letter-spacing: .5em; color: var(--rose);
+        text-transform: uppercase; margin-bottom: 30px; padding: 8px 0;
+    }
+    .eyebrow span { display: block; width: 34px; height: 1px; background: var(--gold); margin: 14px auto 0; }
+
+    .hero h1 {
+        font-size: 62px; font-weight: 400; line-height: 1.32; letter-spacing: .04em; margin: 0 0 30px; color: #3a2f34;
+    }
+    .hero h1 em {
+        font-style: normal;
+        background: linear-gradient(100deg, #c68fa8, #cfa87c 55%, #b58ab0);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .lead {
+        max-width: 640px; margin: 0 auto 44px; font-size: 15px; line-height: 2.2; color: #7d6e75;
+    }
+    .btn-pill {
+        display: inline-block; padding: 14px 42px; border-radius: 40px; font-size: 13px;
+        letter-spacing: .22em; border: 1px solid transparent; transition: all .35s ease;
+    }
+    .btn-fill {
+        background: linear-gradient(100deg, #c68fa8, #cfa87c); color: #fff;
+        box-shadow: 0 10px 26px rgba(198,143,168,.32);
+    }
+    .btn-fill:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 16px 34px rgba(198,143,168,.42); }
+    .btn-ghost { border-color: #ddc7d1; color: #8b7480; background: transparent; }
+    .btn-ghost:hover { color: var(--rose-deep); border-color: var(--rose); transform: translateY(-2px); }
+
+    .scroll-tip {
+        position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%);
+        z-index: 2; color: #b39aa5; font-size: 11px; letter-spacing: .3em; text-align: center;
+    }
+    .scroll-tip i { display: block; margin-bottom: 10px; animation: bounce 2.2s ease-in-out infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(8px); opacity: 1; } }
+
+    /* ============ 通用区块 ============ */
+    .section { padding: 110px 0; position: relative; }
+    .section-title { text-align: center; margin-bottom: 66px; }
+    .section-title .kicker { font-size: 11px; letter-spacing: .45em; color: var(--gold); text-transform: uppercase; }
+    .section-title h2 { font-size: 32px; font-weight: 400; letter-spacing: .14em; margin: 16px 0 16px; color: #3a2f34; }
+    .section-title .tt-line { width: 46px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose), transparent); margin: 0 auto; }
+
+    /* ============ 优雅主张卡片 ============ */
+    .card {
+        background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 46px 30px 40px;
+        text-align: center; margin-bottom: 30px; position: relative; overflow: hidden;
+        transition: transform .45s cubic-bezier(.2,.7,.3,1), box-shadow .45s ease, border-color .45s ease;
+    }
+    .card::before {
+        content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+        background: linear-gradient(90deg, #c68fa8, #cfa87c); transform: scaleX(0); transition: transform .5s ease;
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 22px 50px rgba(130,95,112,.13); border-color: #ead9e1; }
+    .card:hover::before { transform: scaleX(1); }
+    .card .num {
+        font-family: Georgia, serif; font-size: 13px; color: #dcc3ce; letter-spacing: .2em; display: block; margin-bottom: 22px;
+    }
+    .card .ico {
+        width: 72px; height: 72px; line-height: 72px; margin: 0 auto 26px; border-radius: 50%;
+        color: var(--rose); font-size: 24px; position: relative;
+        background: linear-gradient(160deg, #fdf1f5, #fbf4ec);
+        box-shadow: inset 0 0 0 1px rgba(198,143,168,.18);
+        transition: all .45s ease;
+    }
+    .card:hover .ico {
+        color: #fff; background: linear-gradient(140deg, #c68fa8, #cfa87c);
+        box-shadow: 0 12px 26px rgba(198,143,168,.3); transform: rotate(-6deg) scale(1.04);
+    }
+    .card h3 { font-size: 17px; letter-spacing: .14em; margin: 0 0 14px; color: #3a2f34; }
+    .card p { font-size: 13.5px; line-height: 2; color: #85777d; margin: 0; }
+
+    /* ============ 数据 ============ */
+    .stats { padding: 66px 0; background: #fff; border-top: 1px solid #f6ebef; border-bottom: 1px solid #f6ebef; }
+    .stat { text-align: center; padding: 10px 0; }
+    .stat .v { font-family: Georgia, serif; font-size: 38px; color: #3a2f34; letter-spacing: .04em; }
+    .stat .v i { font-style: normal; font-size: 20px; color: var(--gold); margin-left: 4px; }
+    .stat .k { font-size: 12px; letter-spacing: .22em; color: #a19098; margin-top: 10px; }
+
+    /* ============ 引言 ============ */
+    .quote {
+        position: relative; overflow: hidden; color: #fff; text-align: center; padding: 120px 0;
+        background: linear-gradient(135deg, #4a3a41 0%, #5f4a53 55%, #6b5157 100%);
+    }
+    .quote .qb {
+        font-family: Georgia, serif; font-size: 64px; line-height: 1; color: rgba(255,255,255,.16);
+        margin-bottom: -18px;
+    }
+    .quote blockquote {
+        border: 0; font-family: Georgia, serif; font-size: 24px; font-weight: 400; line-height: 1.95;
+        letter-spacing: .08em; max-width: 780px; margin: 0 auto 22px; color: #fdf3f6;
+    }
+    .quote cite { font-style: normal; font-size: 11.5px; letter-spacing: .28em; color: #e3c6d2; }
+    .quote .glow {
+        position: absolute; width: 300px; height: 300px; border-radius: 50%;
+        background: rgba(232,190,210,.16); filter: blur(70px);
+    }
+    .quote .glow.g1 { top: -80px; left: 12%; }
+    .quote .glow.g2 { bottom: -90px; right: 10%; background: rgba(215,185,140,.14); }
+
+    /* ============ 关于/CTA ============ */
+    .cta { padding: 110px 0; }
+    .cta-panel {
+        border-radius: 4px; padding: 64px 40px; text-align: center; position: relative; overflow: hidden;
+        background: linear-gradient(160deg, #fdf4f6, #fbf5ee 60%, #fefaf9);
+        box-shadow: 0 20px 50px rgba(130,95,112,.08); border: 1px solid #f4e6ec;
+    }
+    .cta-panel .fa { color: var(--rose); font-size: 22px; margin-bottom: 20px; }
+    .cta-panel h2 { font-size: 28px; font-weight: 400; letter-spacing: .12em; margin: 0 0 14px; color: #3a2f34; }
+    .cta-panel p { font-size: 13.5px; color: #85777d; letter-spacing: .06em; margin-bottom: 32px; }
+
+    /* ============ 页脚 ============ */
+    .footer { background: #403439; color: #b9a8b0; padding: 60px 0 30px; text-align: center; font-size: 12.5px; }
+    .footer .f-brand {
+        font-family: Georgia, serif; font-size: 18px; letter-spacing: .34em; color: #fff; margin-bottom: 18px;
+    }
+    .footer .f-slogan { font-size: 12px; letter-spacing: .18em; color: #a08e97; margin-bottom: 26px; }
+    .footer .f-links { margin-bottom: 24px; }
+    .footer .f-links a { color: #b9a8b0; margin: 0 13px; font-size: 12.5px; letter-spacing: .06em; }
+    .footer .f-links a:hover { color: #e7c6d3; }
+    .footer .social { margin-bottom: 26px; }
+    .footer .social a {
+        display: inline-block; width: 34px; height: 34px; line-height: 32px; margin: 0 5px;
+        border: 1px solid rgba(255,255,255,.16); border-radius: 50%; color: #b9a8b0; font-size: 13px;
+    }
+    .footer .social a:hover { color: #fff; border-color: #c68fa8; background: rgba(198,143,168,.45); transform: translateY(-2px); }
+    .footer .icp { line-height: 2.2; color: #9d8b94; font-size: 12px; letter-spacing: .04em; }
+    .footer .icp a { color: #9d8b94; }
+    .footer .icp a:hover { color: #e7c6d3; }
+    .footer .icp .fa-shield { margin-right: 5px; }
+    .footer .copyright { color: #86767e; margin-top: 14px; font-size: 12px; letter-spacing: .04em; }
+
+    /* ============ 返回顶部 ============ */
+    .to-top {
+        position: fixed; right: 26px; bottom: 26px; width: 42px; height: 42px; line-height: 40px;
+        text-align: center; border: 1px solid #e7d5dd; border-radius: 50%; background: #fff; color: var(--rose);
+        z-index: 90; opacity: 0; visibility: hidden; transition: all .35s ease;
+        box-shadow: 0 8px 20px rgba(130,95,112,.12);
+    }
+    .to-top.show { opacity: 1; visibility: visible; }
+    .to-top:hover { color: #fff; background: var(--rose); border-color: var(--rose); }
+
+    @media (max-width: 991px) {
+        .hero h1 { font-size: 46px; }
+        .quote blockquote { font-size: 20px; }
+    }
+    @media (max-width: 767px) {
+        .hero { min-height: auto; padding: 130px 0 90px; }
+        .hero h1 { font-size: 32px; line-height: 1.45; }
+        .hero .lead { font-size: 14px; line-height: 2; padding: 0 6px; }
+        .scroll-tip { display: none; }
+        .section { padding: 70px 0; }
+        .section-title h2 { font-size: 25px; }
+        .cta { padding: 70px 0; }
+        .cta-panel { padding: 44px 22px; }
+        .quote { padding: 80px 0; }
+        .quote blockquote { font-size: 17px; line-height: 1.9; }
+        .stats { padding: 44px 0; }
+        .stat { margin-bottom: 24px; }
+        .footer { padding: 46px 0 24px; }
+    }
+</style>
 </head>
 <body>
-    <div class="card">
-        <h1>nvser.com</h1>
-        <p>Site initialized by oject.php</p>
+
+<nav class="navbar navbar-goddess navbar-fixed-top" id="topNav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navCollapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#hero">GODDESS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navCollapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#hero">首 页</a></li>
+                <li><a href="#grace">优雅主张</a></li>
+                <li><a href="#word">她 说</a></li>
+                <li><a href="#join">关注我们</a></li>
+            </ul>
+        </div>
     </div>
+</nav>
+
+<header class="hero" id="hero">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="container inner">
+        <div class="eyebrow">Goddess Plan<span></span></div>
+        <h1>成为自己的<em>光</em><br>而非谁的倒影</h1>
+        <p class="lead">
+            真正的女神气质，从不依赖标签与年纪。<br>
+            它藏在每一个认真生活的细节里 —— 从容、自律、清醒，<br>温柔而坚定，且永远忠于自己。
+        </p>
+        <p>
+            <a href="#join" class="btn-pill btn-fill">开启女神之旅</a>
+            <a href="#grace" class="btn-pill btn-ghost">了解更多</a>
+        </p>
+    </div>
+    <div class="scroll-tip"><i class="fa fa-angle-down"></i>SCROLL</div>
+</header>
+
+<section class="section" id="grace">
+    <div class="container">
+        <div class="section-title reveal">
+            <div class="kicker">Philosophy</div>
+            <h2>优雅主张</h2>
+            <div class="tt-line"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card reveal">
+                    <span class="num">01</span>
+                    <div class="ico fa fa-leaf"></div>
+                    <h3>从容悦己</h3>
+                    <p>不为取悦而精致，只为取悦自己而认真。慢下来，才看得见生活本来的样子。</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card reveal" style="transition-delay:.12s">
+                    <span class="num">02</span>
+                    <div class="ico fa fa-diamond"></div>
+                    <h3>清醒自信</h3>
+                    <p>独立的思想与经济的底气，是永不褪色的底妆。做选择的人，而不是被选择的人。</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card reveal" style="transition-delay:.24s">
+                    <span class="num">03</span>
+                    <div class="ico fa fa-heart-o"></div>
+                    <h3>温柔有力</h3>
+                    <p>柔软不是妥协，而是一种更高级的力量。允许自己发光，也允许别人点灯。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 stat reveal">
+                <div class="v"><span class="counter" data-to="128">0</span><i>K</i></div>
+                <div class="k">同 行 姐 妹</div>
+            </div>
+            <div class="col-sm-4 stat reveal" style="transition-delay:.12s">
+                <div class="v"><span class="counter" data-to="365">0</span><i>天</i></div>
+                <div class="k">每 日 陪 伴</div>
+            </div>
+            <div class="col-sm-4 stat reveal" style="transition-delay:.24s">
+                <div class="v"><span class="counter" data-to="86">0</span><i>城</i></div>
+                <div class="k">线 下 沙 龙</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="quote" id="word">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="container" style="position:relative;z-index:2">
+        <div class="qb reveal">&ldquo;</div>
+        <blockquote class="reveal">
+            你可以性感，可以清冷，可以热烈 ——<br>
+            只要那是你心甘情愿成为的样子。
+        </blockquote>
+        <cite class="reveal">— 来自一位普通却不肯敷衍的姑娘</cite>
+    </div>
+</section>
+
+<section class="cta" id="join">
+    <div class="container">
+        <div class="cta-panel reveal">
+            <div class="fa fa-envelope-o"></div>
+            <h2>与我们一起，慢慢变成更好的人</h2>
+            <p>每周一封慢信，关于穿搭、阅读、独处与爱自己。</p>
+            <a href="#hero" class="btn-pill btn-fill">订阅女神慢信</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="f-brand">GODDESS</div>
+        <div class="f-slogan">女神成长计划 · Grace &amp; Growth</div>
+        <div class="f-links">
+            <a href="#">关于我们</a>
+            <a href="#">内容投稿</a>
+            <a href="#">商务合作</a>
+            <a href="#">隐私政策</a>
+            <a href="#">联系我们</a>
+        </div>
+        <div class="social">
+            <a href="#" title="微博"><i class="fa fa-weibo"></i></a>
+            <a href="#" title="微信"><i class="fa fa-wechat"></i></a>
+            <a href="#" title="小红书"><i class="fa fa-instagram"></i></a>
+            <a href="#" title="邮箱"><i class="fa fa-envelope"></i></a>
+        </div>
+        <div class="icp">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">鲁ICP备2024092961号-26</a>
+            <span>&nbsp;|&nbsp;</span>
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37130202373077" target="_blank" rel="nofollow">
+                <i class="fa fa-shield"></i>鲁公网安备37130202373077号
+            </a>
+        </div>
+        <div class="copyright">Copyright &copy; 2026 Goddess · 女神成长计划　保留所有权利</div>
+    </div>
+</footer>
+
+<a href="#hero" class="to-top" title="回到顶部"><i class="fa fa-angle-up"></i></a>
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script>
+$(function () {
+    var $win = $(window), $nav = $('#topNav'), $top = $('.to-top');
+
+    $win.on('scroll', function () {
+        var st = $win.scrollTop();
+        $nav.toggleClass('navbar-solid', st > 50);
+        $top.toggleClass('show', st > 500);
+    }).trigger('scroll');
+
+    /* 滚动渐显 + 数字滚动 */
+    var $reveal = $('.reveal');
+    function countUp($scope) {
+        $scope.find('.counter').each(function () {
+            var $t = $(this), to = parseInt($t.data('to'), 10);
+            $({ n: 0 }).animate({ n: to }, {
+                duration: 1600, easing: 'swing',
+                step: function (v) { $t.text(Math.floor(v)); },
+                complete: function () { $t.text(to); }
+            });
+        });
+    }
+    function revealIn() {
+        var h = $win.height();
+        $reveal.each(function () {
+            var $el = $(this);
+            if ($el.hasClass('in') || $el.offset().top > $win.scrollTop() + h - 80) { return; }
+            $el.addClass('in');
+            countUp($el);
+        });
+    }
+    $win.on('scroll', revealIn);
+    revealIn();
+
+    /* 平滑锚点 */
+    $('a[href^="#"]').not('[data-toggle]').on('click', function (e) {
+        var $target = $($(this).attr('href'));
+        if ($target.length) {
+            e.preventDefault();
+            var offset = $target.attr('id') === 'hero' ? 0 : $target.offset().top - 58;
+            $('html, body').animate({ scrollTop: offset }, 620, 'swing');
+        }
+    });
+    $('.navbar-collapse a').on('click', function () { $('.navbar-collapse').collapse('hide'); });
+});
+</script>
 </body>
 </html>
